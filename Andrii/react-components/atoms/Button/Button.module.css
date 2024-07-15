@@ -1,0 +1,21 @@
+.primaryButton {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #a6c4f4;
+    color: #000000
+  }
+  
+  .secondaryButton {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #d69cea;
+    color: #000000
+  }
