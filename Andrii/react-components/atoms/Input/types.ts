@@ -1,3 +1,10 @@
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, MutableRefObject } from 'react'
 
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+export type InputProps = {
+  native?: InputHTMLAttributes<HTMLInputElement>
+}
+
+export type InputRefs = {
+  inputRef: MutableRefObject<HTMLInputElement | null>
+  setValue: (value: string) => void
+}

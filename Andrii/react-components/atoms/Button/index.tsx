@@ -1,17 +1,46 @@
-import { FC } from 'react'
-import { IButtonProps } from './types'
-import { createClassName } from '../../helpers/createClassName'
-import css from './index.module.css'
+import {
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  PropsWithChildren,
+} from 'react'
+import { createClassName } from '#libraries/dom/createClassName'
+import { createNameSpace } from '#libraries/dom/createNameSpace'
+import { ButtonRefs, ButtonProps } from './types'
+import './styles.sass'
 
-export const Button: FC<IButtonProps> = props => {
-  const { children, className, ...restProps } = props
+export const Button = forwardRef<ButtonRefs, PropsWithChildren<ButtonProps>>(
+  ({ children, native = {} }, ref) => {
+    const { disabled = false } = native
 
-  return (
-    <button
-      {...restProps}
-      className={createClassName([css.button, className ?? ''])}
-    >
-      {children}
-    </button>
-  )
-}
+    const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+    useImperativeHandle(ref, () => ({
+      get buttonRef() {
+        return buttonRef
+      },
+    }))
+
+    return (
+      <button
+        {...native}
+        ref={buttonRef}
+        className={createClassName([
+          ns.root(),
+          ...(disabled ? [ns.child('disabled').value(), 'disabled'] : []),
+          native.className || '',
+        ])}
+      >
+        <div
+          role='presentation'
+          aria-hidden={true}
+          className={createClassName([ns.child('content').value()])}
+        >
+          {children}
+        </div>
+      </button>
+    )
+  },
+)
+
+const ns = createNameSpace(Object.keys({ Button })[0])

@@ -1,3 +1,9 @@
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, MutableRefObject } from 'react'
 
-export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+export type ButtonProps = {
+  native?: ButtonHTMLAttributes<HTMLButtonElement>
+}
+
+export type ButtonRefs = {
+  buttonRef: MutableRefObject<HTMLButtonElement | null>
+}
