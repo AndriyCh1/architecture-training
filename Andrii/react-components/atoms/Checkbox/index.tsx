@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react'
 import type { CheckboxProps, CheckboxRefs } from './types'
+import './styles.sass'
 
 export const Checkbox = forwardRef<CheckboxRefs, CheckboxProps>(
   ({ native = {} }, ref) => {
