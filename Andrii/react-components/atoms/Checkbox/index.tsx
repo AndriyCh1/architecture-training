@@ -4,15 +4,14 @@ import {
   useImperativeHandle,
   useRef,
   useState,
+  MouseEvent,
 } from 'react'
-import type { CheckboxProps, CheckboxRefs } from './types'
+import { CheckboxProps, CheckboxRefs } from './types'
 import './styles.sass'
 
 export const Checkbox = forwardRef<CheckboxRefs, CheckboxProps>(
-  ({ native = {} }, ref) => {
-    const { checked, disabled = false } = native
-
-    const checkboxRef = useRef<HTMLInputElement | null>(null)
+  ({ native = {}, checked, disabled, onChange }, ref) => {
+    const checkboxRef = useRef<HTMLDivElement | null>(null)
     const [isChecked, setIsChecked] = useState(checked ?? false)
 
     useImperativeHandle(ref, () => ({
@@ -26,20 +25,37 @@ export const Checkbox = forwardRef<CheckboxRefs, CheckboxProps>(
       }
     }, [checked, isChecked])
 
+    const handleOnClick = (e: MouseEvent<HTMLDivElement>) => {
+      if (disabled) return
+
+      setIsChecked(!isChecked)
+      onChange?.(e)
+    }
+
     return (
-      <input
-        {...native}
+      <div
+        role='checkbox'
         ref={checkboxRef}
-        type='checkbox'
-        checked={isChecked}
-        disabled={disabled}
+        aria-checked={isChecked}
+        aria-disabled={disabled}
+        onClick={handleOnClick}
         className={createClassName([
           ns.root(),
           disabled ? ns.child('disabled').value() : '',
           disabled ? 'disabled' : '',
           native.className || '',
         ])}
-      />
+      >
+        <span
+          aria-hidden={true}
+          className={createClassName([
+            ns.child('content').value(),
+            isChecked ? ns.child('checked').value() : '',
+          ])}
+        >
+          {isChecked ? '✓' : ''}
+        </span>
+      </div>
     )
   },
 )
