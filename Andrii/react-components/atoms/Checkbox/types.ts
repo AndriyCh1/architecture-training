@@ -1,12 +1,10 @@
-import { HTMLAttributes, MouseEvent, MutableRefObject } from "react";
+import { InputHTMLAttributes, MutableRefObject, ReactNode } from 'react'
 
 export type CheckboxProps = {
-  native?: HTMLAttributes<HTMLDivElement>;
-  checked?: boolean;
-  disabled?: boolean;
-  onChange?: (e: MouseEvent<HTMLDivElement>) => void;
-};
+  native?: InputHTMLAttributes<HTMLInputElement>
+  icon?: ReactNode
+}
 
 export type CheckboxRefs = {
-  checkboxRef: MutableRefObject<HTMLDivElement | null>;
-};
+  checkboxRef: MutableRefObject<HTMLInputElement | null>
+}

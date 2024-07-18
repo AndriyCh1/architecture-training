@@ -1,61 +1,82 @@
 import {
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
+  ChangeEvent,
   MouseEvent,
+  KeyboardEvent,
 } from 'react'
 import { CheckboxProps, CheckboxRefs } from './types'
 import './styles.sass'
 
 export const Checkbox = forwardRef<CheckboxRefs, CheckboxProps>(
-  ({ native = {}, checked, disabled, onChange }, ref) => {
-    const checkboxRef = useRef<HTMLDivElement | null>(null)
+  ({ native = {}, icon }, ref) => {
+    const { checked, disabled = false, onChange, ...restNativeProps } = native
+    const nativeCheckboxRef = useRef<HTMLInputElement | null>(null)
     const [isChecked, setIsChecked] = useState(checked ?? false)
 
     useImperativeHandle(ref, () => ({
-      checkboxRef,
-      setIsChecked,
+      checkboxRef: nativeCheckboxRef,
     }))
 
-    useEffect(() => {
-      if (checked !== undefined && checked !== isChecked) {
-        setIsChecked(checked)
+    const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter' && !disabled) {
+        setIsChecked(prev => !prev)
       }
-    }, [checked, isChecked])
+    }
 
-    const handleOnClick = (e: MouseEvent<HTMLDivElement>) => {
-      if (disabled) return
+    const handleCheckboxClick = (e: MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation()
 
-      setIsChecked(!isChecked)
+      if (nativeCheckboxRef.current && !disabled) {
+        nativeCheckboxRef.current.click()
+      }
+    }
+
+    const handleNativeCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setIsChecked(prev => !prev)
       onChange?.(e)
     }
 
     return (
-      <div
-        role='checkbox'
-        ref={checkboxRef}
-        aria-checked={isChecked}
-        aria-disabled={disabled}
-        onClick={handleOnClick}
-        className={createClassName([
-          ns.root(),
-          disabled ? ns.child('disabled').value() : '',
-          disabled ? 'disabled' : '',
-          native.className || '',
-        ])}
-      >
-        <span
+      <>
+        <div
           aria-hidden={true}
           className={createClassName([
-            ns.child('content').value(),
-            isChecked ? ns.child('checked').value() : '',
+            ns.root(),
+            disabled ? ns.child('disabled').value() : '',
+            disabled ? 'disabled' : '',
+            native.className || '',
           ])}
+          style={native.style}
+          onClick={handleCheckboxClick}
+          tabIndex={0}
+          onKeyUp={handleKeyPress}
         >
-          {isChecked ? '✓' : ''}
-        </span>
-      </div>
+          {isChecked && icon ? icon : null}
+          {isChecked && !icon ? (
+            <span
+              aria-hidden={true}
+              className={createClassName([
+                ns.child('content').value(),
+                isChecked ? ns.child('checked').value() : '',
+              ])}
+            >
+              ✓
+            </span>
+          ) : null}
+        </div>
+        <input
+          {...restNativeProps}
+          ref={nativeCheckboxRef}
+          type='checkbox'
+          style={{ display: 'none' }}
+          checked={isChecked}
+          disabled={disabled}
+          onChange={handleNativeCheckboxChange}
+        />
+      </>
     )
   },
 )
