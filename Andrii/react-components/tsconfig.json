@@ -1,3 +1,14 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#libraries": ["../js-libraries/*"],
+      "#packages": ["../js-packages/*"],
+      "#components": ["./"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
   "extends": "../js-packages/tsconfig.json"
 }

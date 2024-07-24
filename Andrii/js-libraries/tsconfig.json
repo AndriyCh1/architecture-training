@@ -1,3 +1,17 @@
 {
-  "extends": "../js-packages/tsconfig.json"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#libraries/*": ["./*"],
+      "#packages/*": ["../js-packages/*"],
+      "#libraries/@core/*": ["../js-libraries/@core/*"],
+      "#libraries/@node/*": ["../js-libraries/@node/*"],
+      "#libraries/@web/*": ["../js-libraries/@web/*"],
+
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "extends": "../js-packages/tsconfig.json",
 }
