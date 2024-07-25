@@ -1,10 +1,10 @@
 export const createNameSpace = (rootName: string) => {
-  rootName = rootName.toLowerCase()
+  const lowerCasedRootName = rootName.toLowerCase()
 
   return {
-    root: () => rootName,
+    root: () => lowerCasedRootName,
     child: (childName: string) => ({
-      value: () => `${rootName}--${childName}`,
+      value: () => `${lowerCasedRootName}--${childName}`,
     }),
   }
 }
