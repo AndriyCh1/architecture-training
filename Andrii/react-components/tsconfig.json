@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "#libraries": ["../js-libraries/*"],
+      "#libraries": ["../js-libraries/@browser/*"],
       "#packages": ["../js-packages/*"],
       "#components": ["./"]
     }
