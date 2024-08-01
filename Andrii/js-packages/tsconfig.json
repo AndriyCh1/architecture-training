@@ -1,20 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                                  
-    "module": "ESNext",                                
-    "baseUrl": "./",    
-    "noEmit": true,                                   
-    "isolatedModules": true,                        
-    "esModuleInterop": true,                           
-    "forceConsistentCasingInFileNames": true,          
-    "strict": true,                                   
-    "noImplicitAny": true,                         
-    "strictNullChecks": true,                       
-    "noUnusedLocals": true,                         
-    "noUnusedParameters": true,                     
-    "noFallthroughCasesInSwitch": true,             
+    "target": "ESNext",
+    "module": "ESNext",
+    "baseUrl": "./",
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "moduleResolution": "Node",
+    "resolveJsonModule": true
   },
-  "include:": ["**/*.ts", "**/*.tsx"]             
+  "include:": ["**/*.ts", "**/*.tsx"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "require": ["tsconfig-paths/register"]
+  }
 }
