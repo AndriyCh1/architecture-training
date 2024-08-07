@@ -15,6 +15,7 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12"
+    "@types/jest": "^29.5.12",
+    "eslint-config-airbnb-base": "^15.0.0"
   }
 }
