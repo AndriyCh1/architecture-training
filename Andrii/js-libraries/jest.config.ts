@@ -1,9 +1,9 @@
-import type { Config } from 'jest'
-import { pathsToModuleNameMapper } from 'ts-jest'
-import { getDefaultConfig } from '#packages/jest.default'
-import tsConfigFile from 'tsconfig.json'
+import type { Config } from 'jest';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { getDefaultConfig } from '#packages/jest.default';
+import tsConfigFile from 'tsconfig.json';
 
-const defaultConfig = getDefaultConfig()
+const defaultConfig = getDefaultConfig();
 
 const config: Config = {
   ...defaultConfig,
@@ -14,9 +14,9 @@ const config: Config = {
   moduleNameMapper: {
     ...(defaultConfig.moduleNameMapper || {}),
     ...pathsToModuleNameMapper(tsConfigFile.compilerOptions.paths, {
-      prefix: '<rootDir>/Andrii/',
+      prefix: '<rootDir>/',
     }),
   },
-}
+};
 
-export default config
+export default config;
