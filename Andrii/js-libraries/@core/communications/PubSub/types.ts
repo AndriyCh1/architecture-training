@@ -1,19 +1,14 @@
 export interface Message {
-  messageType: string;
-  [key: string]: any;
+  type: string;
+  id?: string;
+  data?: any;
 }
 
-export interface MessageEvent {
-  id: string;
-  messageType: string;
-  [key: string]: any;
-}
-
-export type MessageHandler = (message: MessageEvent) => void;
+export type MessageHandler = (message: Message) => void;
 
 export interface Subscription {
   id: string;
-  messageType: string;
+  messageType: Message['type'];
   messageHandler: MessageHandler;
 }
 
@@ -24,12 +19,12 @@ export interface SubscribeResponse {
 }
 
 export interface PublishResponse {
-  messageId: MessageEvent['id'];
+  messageId: Message['id'];
 }
 
 export interface PubSubLike {
   subscribe: (
-    messageType: string,
+    messageType: Message['type'],
     messageHandler: MessageHandler,
   ) => SubscribeResponse;
   publish: (message: Message) => PublishResponse;

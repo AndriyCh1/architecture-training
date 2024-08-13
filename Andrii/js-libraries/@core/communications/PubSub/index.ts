@@ -22,10 +22,8 @@ export class PubSub implements PubSubLike {
 
     this.subscribers.get(messageType)?.add(messageHandler);
 
-    const subscriptionId = generateId();
-
     const subscription: Subscription = {
-      id: subscriptionId,
+      id: generateId(),
       messageType,
       messageHandler,
     };
@@ -39,12 +37,10 @@ export class PubSub implements PubSubLike {
     };
   }
 
-  // NOTE: How to deal with primitive-type arguments?
-  // Should I check whether it is an object?
   public publish(message: Message) {
-    const subscribers = this.subscribers.get(message.messageType);
+    const subscribers = this.subscribers.get(message.type);
 
-    const messageId = generateId();
+    const messageId = message.id ?? generateId();
 
     subscribers?.forEach((subscriber) => {
       subscriber({ id: messageId, ...message });
@@ -62,13 +58,9 @@ export class PubSub implements PubSubLike {
 
     const subscribers = this.subscribers.get(subscription.messageType);
 
-    if (!subscribers) {
-      return false;
-    }
+    subscribers!.delete(subscription.messageHandler);
 
-    subscribers.delete(subscription.messageHandler);
-
-    if (subscribers.size === 0) {
+    if (subscribers!.size === 0) {
       this.subscribers.delete(subscription.messageType);
     }
 
