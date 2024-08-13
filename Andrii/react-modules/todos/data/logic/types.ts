@@ -31,10 +31,38 @@ type EditTodoButton = {
   data: Partial<Todo>; // Consider Omitting
 };
 
+type RemoveTodoButton = {
+  id: Todo["id"];
+};
+
+type RestoreTodoButton = {
+  id: Todo["id"];
+};
+
+type DeleteTodoButton = {
+  id: Todo["id"];
+};
+
 // Checkboxes:
 // - IsDoneTodoCheckbox
-// - ApplyFilteringCheckbox
+// - ApplyFilteringCheckbox // -> ApplySearchFilterCheckbox ?
 // - ShowOnlyDoneCheckbox
 // - ShowOnlyUndoneCheckbox
 
 // Checkbox interfaces:
+type IsDoneTodoCheckbox = {
+  id: Todo["id"];
+  isDone?: Todo["isDone"]; // Initial status
+};
+
+type ApplyFilteringCheckbox = {
+  apply?: boolean; // Initial state
+};
+
+type ShowOnlyDoneCheckbox = {
+  apply?: boolean; // Initial state
+};
+
+type ShowOnlyUndoneCheckbox = {
+  apply?: boolean; // Initial state
+};
