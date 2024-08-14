@@ -7,10 +7,7 @@ const defaultConfig = getDefaultConfig();
 
 const config: Config = {
   ...defaultConfig,
-  testPathIgnorePatterns: [
-    ...(defaultConfig.testPathIgnorePatterns || []),
-    '@browser',
-  ],
+  testPathIgnorePatterns: [...(defaultConfig.testPathIgnorePatterns || [])],
   moduleNameMapper: {
     ...(defaultConfig.moduleNameMapper || {}),
     ...pathsToModuleNameMapper(tsConfigFile.compilerOptions.paths, {
