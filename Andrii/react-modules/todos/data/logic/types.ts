@@ -52,17 +52,17 @@ type DeleteTodoButton = {
 // Checkbox interfaces:
 type IsDoneTodoCheckbox = {
   id: Todo["id"];
-  isDone?: Todo["isDone"]; // Initial status
+  checked?: boolean;
 };
 
 type ApplyFilteringCheckbox = {
-  apply?: boolean; // Initial state
+  checked?: boolean;
 };
 
 type ShowOnlyDoneCheckbox = {
-  apply?: boolean; // Initial state
+  checked?: boolean;
 };
 
 type ShowOnlyUndoneCheckbox = {
-  apply?: boolean; // Initial state
+  checked?: boolean;
 };
