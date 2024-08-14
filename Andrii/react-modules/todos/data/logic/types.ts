@@ -22,9 +22,6 @@ export type Todo = {
 // - DeleteTodoButton
 
 // Button interfaces:
-type CreateTodoButtonProps = {
-  title: Todo["title"];
-};
 
 type EditTodoButton = {
   id: Todo["id"];
