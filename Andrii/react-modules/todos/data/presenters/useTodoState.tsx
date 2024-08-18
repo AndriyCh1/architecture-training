@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { todosStore } from "#modules/todos/data/store/todosStore";
+import { getTodoStore } from "#modules/todos/data/store/instance";
 
 export const useTodosState = () => {
-  const [state, setState] = useState(todosStore.getState());
-  todosStore.subscribe(setState);
+  const [state, setState] = useState(getTodoStore().getState());
+  getTodoStore().subscribe(setState);
   return state;
 };

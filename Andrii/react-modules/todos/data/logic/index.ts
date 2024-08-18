@@ -5,20 +5,12 @@
 
 /* 2 stores: CurrentTodos,  HistoryTodos */
 
-import { generateId } from "#libraries/@core/crypto/generateId";
+import { TodosLogicToolset } from "./toolset";
 import { Todo } from "./types";
 
-export class TodosLogic {
-  createTodo(title: Todo["title"]): Todo {
-    return {
-      id: generateId(),
-      title,
-      isDone: false, // Accordingly to the business requirements
-      createdAt: new Date(), // Accordingly to the business requirements
-    };
-  }
-
+export class TodosLogic extends TodosLogicToolset {
   addTodo(title: Todo["title"], todos: Todo[]): Todo[] {
+    // TODO: check if title is not empty
     if (todos.find((todo) => todo.title === title)) {
       return todos;
     }
@@ -26,13 +18,18 @@ export class TodosLogic {
     return [...todos, this.createTodo(title)];
   }
 
-  updateTodoById(id: Todo["id"], todo: Partial<Todo>, todos: Todo[]): Todo[] {
-    return todos.map((todoItem) =>
-      todoItem.id === id ? { ...todoItem, ...todo } : todoItem,
+  editTodo(todos: Todo[], id: Todo["id"], incomingData: Partial<Todo>): Todo[] {
+    return todos.map((todo) =>
+      todo.id === id ? {
+        ...todo,
+        ...incomingData,
+        id: todo.id,
+        createdAt: todo.createdAt,
+      } : todo,
     );
   }
 
-  deleteTodoById(id: Todo["id"], todos: Todo[]): Todo[] {
-    return todos.filter((todo) => todo.id !== id);
+  removeTodo(id: Todo["id"], todos: Todo[]): Todo[] {
+    return [...todos.filter((todo) => todo.id !== id)];
   }
 }

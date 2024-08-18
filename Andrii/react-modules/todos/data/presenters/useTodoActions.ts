@@ -1,4 +1,4 @@
-import { todosStore } from "#modules/todos/data/store/todosStore";
+import { todosStore } from "#modules/todos/data/store/instance";
 
 export const useTodosActions = () => {
   return {

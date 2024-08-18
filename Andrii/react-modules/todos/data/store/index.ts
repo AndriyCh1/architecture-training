@@ -1,7 +1,7 @@
 import { StateStore } from "#libraries/@core/store/StateStore/types";
 import { TodosLogic } from "#modules/todos/data/logic";
 import { Todo } from "#modules/todos/data/logic/types";
-import { ZustandStore } from "#modules/todos/data/store-providers/ZustandStore";
+import { ZustandStore } from "#modules/todos/data/store/providers/ZustandStore";
 import { TodosState } from "./types";
 
 export class TodosStore implements StateStore<TodosState> {
@@ -34,13 +34,13 @@ export class TodosStore implements StateStore<TodosState> {
 
   updateTodoById(id: Todo["id"], todo: Partial<Todo>) {
     this.setState({
-      todos: this.logic.updateTodoById(id, todo, this.getState().todos),
+      todos: this.logic.editTodo(id, todo, this.getState().todos),
     });
   }
 
   deleteTodoById(id: Todo["id"]) {
     this.setState({
-      todos: this.logic.deleteTodoById(id, this.getState().todos),
+      todos: this.logic.removeTodo(id, this.getState().todos),
     });
   }
 }
